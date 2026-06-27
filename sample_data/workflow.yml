@@ -1,0 +1,79 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install flake8 black isort
+      - name: Run linter
+        run: flake8 src/
+      - name: Check formatting
+        run: black --check src/
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run unit tests
+        run: pytest tests/unit/ -v --tb=short
+      - name: Upload coverage
+        run: pytest --cov=src tests/unit/
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+      - name: Start services
+        run: docker-compose up -d
+      - name: Wait for services
+        run: sleep 30
+      - name: Run integration tests
+        run: pytest tests/integration/ -v
+      - name: Tear down
+        run: docker-compose down
+
+  build-docker:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build -t myapp:latest .
+      - name: Tag image
+        run: docker tag myapp:latest myapp:${{ github.sha }}
+      - name: Push to registry
+        run: docker push myapp:latest
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: build-docker
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to staging
+        run: ./scripts/deploy.sh staging
+      - name: Run smoke tests
+        run: pytest tests/smoke/ -v
+      - name: Notify team
+        run: ./scripts/notify.sh "Deployed to staging"

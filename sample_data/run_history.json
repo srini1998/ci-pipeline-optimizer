@@ -1,0 +1,146 @@
+{
+  "workflow_name": "CI Pipeline",
+  "repo": "myorg/myapp",
+  "runs": [
+    {
+      "run_id": "run_001",
+      "timestamp": "2026-06-20T09:00:00Z",
+      "trigger": "push",
+      "branch": "main",
+      "status": "success",
+      "jobs": {
+        "lint": {"duration_seconds": 45, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 180, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 420, "status": "success", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 240, "status": "success", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 90, "status": "success", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_002",
+      "timestamp": "2026-06-20T11:30:00Z",
+      "trigger": "pull_request",
+      "branch": "feature/auth",
+      "status": "failure",
+      "jobs": {
+        "lint": {"duration_seconds": 42, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 195, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 445, "status": "failure", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_003",
+      "timestamp": "2026-06-20T14:00:00Z",
+      "trigger": "push",
+      "branch": "develop",
+      "status": "success",
+      "jobs": {
+        "lint": {"duration_seconds": 48, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 188, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 390, "status": "success", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 255, "status": "success", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 95, "status": "success", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_004",
+      "timestamp": "2026-06-21T09:15:00Z",
+      "trigger": "pull_request",
+      "branch": "feature/payments",
+      "status": "failure",
+      "jobs": {
+        "lint": {"duration_seconds": 44, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 210, "status": "failure", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_005",
+      "timestamp": "2026-06-21T10:00:00Z",
+      "trigger": "push",
+      "branch": "feature/payments",
+      "status": "success",
+      "jobs": {
+        "lint": {"duration_seconds": 46, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 175, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 510, "status": "success", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 260, "status": "success", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 88, "status": "success", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_006",
+      "timestamp": "2026-06-21T13:00:00Z",
+      "trigger": "pull_request",
+      "branch": "feature/search",
+      "status": "failure",
+      "jobs": {
+        "lint": {"duration_seconds": 43, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 190, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 400, "status": "failure", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_007",
+      "timestamp": "2026-06-21T15:30:00Z",
+      "trigger": "push",
+      "branch": "main",
+      "status": "success",
+      "jobs": {
+        "lint": {"duration_seconds": 47, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 200, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 480, "status": "success", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 235, "status": "success", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 92, "status": "success", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_008",
+      "timestamp": "2026-06-22T09:00:00Z",
+      "trigger": "pull_request",
+      "branch": "feature/api-v2",
+      "status": "success",
+      "jobs": {
+        "lint": {"duration_seconds": 41, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 185, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 435, "status": "success", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 248, "status": "success", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 86, "status": "success", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_009",
+      "timestamp": "2026-06-22T11:00:00Z",
+      "trigger": "push",
+      "branch": "develop",
+      "status": "failure",
+      "jobs": {
+        "lint": {"duration_seconds": 44, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 192, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 460, "status": "failure", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 0, "status": "skipped", "runner": "ubuntu-latest"}
+      }
+    },
+    {
+      "run_id": "run_010",
+      "timestamp": "2026-06-22T14:00:00Z",
+      "trigger": "push",
+      "branch": "main",
+      "status": "success",
+      "jobs": {
+        "lint": {"duration_seconds": 45, "status": "success", "runner": "ubuntu-latest"},
+        "unit-tests": {"duration_seconds": 178, "status": "success", "runner": "ubuntu-latest"},
+        "integration-tests": {"duration_seconds": 415, "status": "success", "runner": "ubuntu-latest"},
+        "build-docker": {"duration_seconds": 242, "status": "success", "runner": "ubuntu-latest"},
+        "deploy-staging": {"duration_seconds": 91, "status": "success", "runner": "ubuntu-latest"}
+      }
+    }
+  ]
+}
