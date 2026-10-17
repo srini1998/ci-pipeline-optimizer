@@ -491,3 +491,13 @@ class TestGitHubFetcher:
         fetcher._get = lambda url: MOCK_WORKFLOWS
         wf_id, _ = fetcher._resolve_workflow()
         assert wf_id == "1"
+
+
+def test_invalid_dependency_graphs_fail_explicitly():
+    from analyzer import WorkflowJob
+    a=WorkflowAnalyzer("unused","unused")
+    assert a.get_critical_path()==[]
+    a.jobs={"x":WorkflowJob("x",["y"]),"y":WorkflowJob("y",["x"])}
+    with pytest.raises(ValueError,match="cycle"): a.get_critical_path()
+    a.jobs={"x":WorkflowJob("x",["missing"])}
+    with pytest.raises(ValueError,match="unknown"): a.get_critical_path()

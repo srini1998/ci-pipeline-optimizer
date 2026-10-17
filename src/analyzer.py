@@ -176,16 +176,26 @@ class WorkflowAnalyzer:
 
         # DP: longest path ending at each node
         memo: Dict[str, float] = {}
+        visiting = set()
+        if not self.jobs:
+            return []
 
         def longest_path(job: str) -> float:
             if job in memo:
                 return memo[job]
+            if job not in self.jobs:
+                raise ValueError("Workflow dependency references an unknown job")
+            if job in visiting:
+                raise ValueError("Workflow dependency graph contains a cycle")
+            visiting.add(job)
             duration = self.stats.get(job, JobStats(job)).avg_duration
             if not self.jobs[job].needs:
                 memo[job] = duration
+                visiting.discard(job)
                 return duration
             parent_max = max(longest_path(p) for p in self.jobs[job].needs)
             memo[job] = duration + parent_max
+            visiting.discard(job)
             return memo[job]
 
         for job in self.jobs:
