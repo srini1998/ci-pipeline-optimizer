@@ -11,3 +11,7 @@ venv/
 .venv/
 reports/
 *.log
+
+node_modules/
+.vercel/
+.env*

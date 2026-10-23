@@ -1,0 +1,1691 @@
+[
+  {
+    "repo": "sindresorhus/p-limit",
+    "name": "CI",
+    "runId": 35384652385,
+    "url": "https://github.com/sindresorhus/p-limit/actions/runs/35384652385",
+    "sha": "a8a6fbec4e0e866d6d779b10889bb4f5567e70eb",
+    "capturedAt": "2026-10-23T01:54:56.934Z",
+    "runAt": "2026-09-18T19:12:44Z",
+    "yaml": "name: CI\non:\n  - push\n  - pull_request\njobs:\n  test:\n    name: Node.js ${{ matrix.node-version }}\n    runs-on: ubuntu-latest\n    strategy:\n      fail-fast: false\n      matrix:\n        node-version:\n          - 24\n          - 22\n          - 20\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: ${{ matrix.node-version }}\n      - run: npm install\n      - run: npm test\n",
+    "jobs": [
+      {
+        "name": "Node.js 20",
+        "conclusion": "success",
+        "start": "2026-09-18T19:12:50Z",
+        "end": "2026-09-18T19:13:28Z",
+        "seconds": 38,
+        "url": "https://github.com/sindresorhus/p-limit/actions/runs/35384652385/job/105728609075",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 0
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "seconds": 5
+          },
+          {
+            "name": "Run npm install",
+            "seconds": 17
+          },
+          {
+            "name": "Run npm test",
+            "seconds": 10
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 24",
+        "conclusion": "success",
+        "start": "2026-09-18T19:12:53Z",
+        "end": "2026-09-18T19:13:31Z",
+        "seconds": 38,
+        "url": "https://github.com/sindresorhus/p-limit/actions/runs/35384652385/job/105728609364",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "seconds": 8
+          },
+          {
+            "name": "Run npm install",
+            "seconds": 18
+          },
+          {
+            "name": "Run npm test",
+            "seconds": 7
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 22",
+        "conclusion": "success",
+        "start": "2026-09-18T19:12:53Z",
+        "end": "2026-09-18T19:13:26Z",
+        "seconds": 33,
+        "url": "https://github.com/sindresorhus/p-limit/actions/runs/35384652385/job/105728609480",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 0
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "seconds": 1
+          },
+          {
+            "name": "Run npm install",
+            "seconds": 19
+          },
+          {
+            "name": "Run npm test",
+            "seconds": 8
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      }
+    ],
+    "requests": 4
+  },
+  {
+    "repo": "pallets/click",
+    "name": "Tests",
+    "runId": 37530542384,
+    "url": "https://github.com/pallets/click/actions/runs/37530542384",
+    "sha": "8c73ff134480f436faa0d041bd19aaf949aac22c",
+    "capturedAt": "2026-10-23T01:54:58.795Z",
+    "runAt": "2026-10-06T20:59:02Z",
+    "yaml": "name: Tests\non:\n  pull_request:\n    paths-ignore: ['docs/**', 'README.md']\n  push:\n    branches: [main, stable]\n    paths-ignore: ['docs/**', 'README.md']\npermissions: {}\nconcurrency:\n  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}\n  cancel-in-progress: true\njobs:\n  tests:\n    name: ${{ matrix.name || matrix.python }}\n    runs-on: ${{ matrix.os || 'ubuntu-latest' }}\n    strategy:\n      fail-fast: false\n      matrix:\n        include:\n          - {python: '3.14'}\n          - {python: '3.14t'}\n          - {name: Windows, python: '3.14', os: windows-latest}\n          - {name: Mac, python: '3.14', os: macos-latest}\n          - {python: '3.13'}\n          - {python: '3.12'}\n          - {python: '3.11'}\n          - {python: '3.10'}\n          - {name: PyPy, python: 'pypy-3.11', tox: pypy3.11}\n    steps:\n      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1\n        with:\n          persist-credentials: false\n      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0\n        with:\n          enable-cache: true\n      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0\n        with:\n          python-version: ${{ matrix.python }}\n      - run: uv run --locked --no-default-groups --group dev tox run\n        env:\n          TOX_ENV: ${{ matrix.tox || format('py{0}', matrix.python) }}\n  typing:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1\n        with:\n          persist-credentials: false\n      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0\n        with:\n          enable-cache: true\n      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0\n        with:\n          python-version-file: pyproject.toml\n      - name: cache mypy\n        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0\n        with:\n          path: ./.mypy_cache\n          key: mypy|${{ hashFiles('pyproject.toml') }}\n      - run: uv run --locked --no-default-groups --group dev tox run -e typing\n",
+    "jobs": [
+      {
+        "name": "typing",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:05Z",
+        "end": "2026-10-06T20:59:25Z",
+        "seconds": 20,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498013",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 3
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "cache mypy",
+            "seconds": 1
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run -e typing",
+            "seconds": 9
+          },
+          {
+            "name": "Post cache mypy",
+            "seconds": 1
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Mac",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:12Z",
+        "end": "2026-10-06T20:59:39Z",
+        "seconds": 27,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498169",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 3
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 5
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 13
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Windows",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:06Z",
+        "end": "2026-10-06T20:59:48Z",
+        "seconds": 42,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498241",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 15
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 4
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 16
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Complete job",
+            "seconds": 1
+          }
+        ]
+      },
+      {
+        "name": "3.12",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:05Z",
+        "end": "2026-10-06T20:59:22Z",
+        "seconds": 17,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498245",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 3
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 8
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "3.10",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:05Z",
+        "end": "2026-10-06T20:59:23Z",
+        "seconds": 18,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498252",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 12
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "PyPy",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:05Z",
+        "end": "2026-10-06T20:59:33Z",
+        "seconds": 28,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498329",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 4
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 17
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "3.11",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:05Z",
+        "end": "2026-10-06T20:59:27Z",
+        "seconds": 22,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498346",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 3
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 11
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "3.14t",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:05Z",
+        "end": "2026-10-06T20:59:28Z",
+        "seconds": 23,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498446",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 8
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 9
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 1
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "3.14",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:05Z",
+        "end": "2026-10-06T20:59:27Z",
+        "seconds": 22,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498520",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 0
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 16
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "3.13",
+        "conclusion": "success",
+        "start": "2026-10-06T20:59:05Z",
+        "end": "2026-10-06T20:59:24Z",
+        "seconds": 19,
+        "url": "https://github.com/pallets/click/actions/runs/37530542384/job/112498498659",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Run uv run --locked --no-default-groups --group dev tox run",
+            "seconds": 13
+          },
+          {
+            "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      }
+    ],
+    "requests": 4
+  },
+  {
+    "repo": "expressjs/express",
+    "name": "ci",
+    "runId": 39046631685,
+    "url": "https://github.com/expressjs/express/actions/runs/39046631685",
+    "sha": "7382480e21da43937ec74fb8930c95ef0f67c9e7",
+    "capturedAt": "2026-10-23T01:55:01.634Z",
+    "runAt": "2026-10-17T15:48:01Z",
+    "yaml": "name: ci\n\non:\n  push:\n    branches:\n      - master\n      - develop\n      - '4.x'\n      - '5.x'\n      - '5.0'\n    paths-ignore:\n      - '*.md'\n  pull_request:\n  workflow_dispatch:\n\npermissions:\n  contents: read\n\n# Cancel in progress workflows\n# in the scenario where we already had a run going for that PR/branch/tag but then triggered a new run\nconcurrency:\n  group: \"${{ github.workflow }} ✨ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}\"\n  cancel-in-progress: true\n\njobs:\n  lint:\n    name: Lint\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1\n        with:\n          persist-credentials: false\n      - name: Setup Node.js\n        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0\n        with:\n          node-version: 'lts/*'\n\n      - name: Install dependencies\n        run: npm install --ignore-scripts --include=dev\n\n      - name: Run lint\n        run: npm run lint\n\n  test:\n    strategy:\n      fail-fast: false\n      matrix:\n        os: [ubuntu-latest, windows-latest]\n        node-version: [18, 19, 20, 21, 22, 23, 24, 25, 26]\n        # Node.js release schedule: https://nodejs.org/en/about/releases/\n\n    name: Node.js ${{ matrix.node-version }} - ${{matrix.os}}\n\n    runs-on: ${{ matrix.os }}\n    steps:\n      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1\n        with:\n          persist-credentials: false\n\n      - name: Setup Node.js ${{ matrix.node-version }}\n        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0\n        with:\n          node-version: ${{ matrix.node-version }}\n\n      - name: Configure npm loglevel\n        run: |\n          npm config set loglevel error\n        shell: bash\n\n      - name: Install dependencies\n        run: npm install\n\n      - name: Output Node and NPM versions\n        run: |\n          echo \"Node.js version: $(node -v)\"\n          echo \"NPM version: $(npm -v)\"\n\n      - name: Run tests\n        shell: bash\n        run: npm run test-ci\n\n      - name: Upload code coverage\n        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1\n        with:\n          name: coverage-node-${{ matrix.node-version }}-${{ matrix.os }}\n          path: ./coverage/lcov.info\n          retention-days: 1\n\n  coverage:\n    needs: test\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n      checks: write\n    steps:\n      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1\n        with:\n          persist-credentials: false\n\n      - name: Install lcov\n        shell: bash\n        run: sudo apt-get -y install lcov\n\n      - name: Collect coverage reports\n        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1\n        with:\n          path: ./coverage\n          pattern: coverage-node-*\n\n      - name: Merge coverage reports\n        shell: bash\n        run: find ./coverage -name lcov.info -exec printf '-a %q\\n' {} \\; | xargs lcov -o ./lcov.info\n\n      - name: Upload coverage report\n        uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8\n        with:\n          file: ./lcov.info\n",
+    "jobs": [
+      {
+        "name": "Lint",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:35Z",
+        "end": "2026-10-17T16:21:51Z",
+        "seconds": 16,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443704579",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Setup Node.js",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 10
+          },
+          {
+            "name": "Run lint",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 26 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:21:58Z",
+        "seconds": 22,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443704846",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Setup Node.js 26",
+            "seconds": 5
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 0
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 8
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 3
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 26",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 19 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:04Z",
+        "seconds": 28,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443704982",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Setup Node.js 19",
+            "seconds": 10
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 0
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 7
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 4
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 19",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 25 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:21:56Z",
+        "seconds": 20,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443704987",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Setup Node.js 25",
+            "seconds": 4
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 0
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 8
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 3
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 25",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 24 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:23Z",
+        "seconds": 47,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705068",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 7
+          },
+          {
+            "name": "Setup Node.js 24",
+            "seconds": 5
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 19
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 7
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 24",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 22 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:21:57Z",
+        "seconds": 21,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705070",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Setup Node.js 22",
+            "seconds": 3
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 0
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 10
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 3
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 22",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 18 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:37Z",
+        "end": "2026-10-17T16:22:41Z",
+        "seconds": 64,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705079",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 12
+          },
+          {
+            "name": "Setup Node.js 18",
+            "seconds": 16
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 20
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 1
+          },
+          {
+            "name": "Run tests",
+            "seconds": 6
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 18",
+            "seconds": 1
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 20 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:37Z",
+        "end": "2026-10-17T16:22:03Z",
+        "seconds": 26,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705082",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Setup Node.js 20",
+            "seconds": 4
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 11
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 4
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 20",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 1
+          }
+        ]
+      },
+      {
+        "name": "Node.js 22 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:21Z",
+        "seconds": 45,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705086",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 7
+          },
+          {
+            "name": "Setup Node.js 22",
+            "seconds": 5
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 20
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 1
+          },
+          {
+            "name": "Run tests",
+            "seconds": 5
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 22",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 23 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:01Z",
+        "seconds": 25,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705101",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Setup Node.js 23",
+            "seconds": 6
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 0
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 8
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 4
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 2
+          },
+          {
+            "name": "Post Setup Node.js 23",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 21 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:34Z",
+        "seconds": 58,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705107",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 6
+          },
+          {
+            "name": "Setup Node.js 21",
+            "seconds": 15
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 24
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 1
+          },
+          {
+            "name": "Run tests",
+            "seconds": 6
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 21",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 23 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:30Z",
+        "seconds": 54,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705111",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 8
+          },
+          {
+            "name": "Setup Node.js 23",
+            "seconds": 13
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 17
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 8
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 23",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 19 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:28Z",
+        "seconds": 52,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705129",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 7
+          },
+          {
+            "name": "Setup Node.js 19",
+            "seconds": 13
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 14
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 2
+          },
+          {
+            "name": "Run tests",
+            "seconds": 9
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 19",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 3
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 25 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:22Z",
+        "seconds": 46,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705140",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 9
+          },
+          {
+            "name": "Setup Node.js 25",
+            "seconds": 10
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 16
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 4
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 25",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 24 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:21:58Z",
+        "seconds": 22,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705151",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Setup Node.js 24",
+            "seconds": 0
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 9
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 1
+          },
+          {
+            "name": "Run tests",
+            "seconds": 3
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 2
+          },
+          {
+            "name": "Post Setup Node.js 24",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 18 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:21:57Z",
+        "seconds": 21,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705156",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Setup Node.js 18",
+            "seconds": 3
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 0
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 10
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 3
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 18",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 20 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:30Z",
+        "seconds": 54,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705187",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 9
+          },
+          {
+            "name": "Setup Node.js 20",
+            "seconds": 15
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 14
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 1
+          },
+          {
+            "name": "Run tests",
+            "seconds": 8
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 0
+          },
+          {
+            "name": "Post Setup Node.js 20",
+            "seconds": 1
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 21 - ubuntu-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:03Z",
+        "seconds": 27,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705203",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 0
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Setup Node.js 21",
+            "seconds": 5
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 0
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 12
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 0
+          },
+          {
+            "name": "Run tests",
+            "seconds": 4
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 1
+          },
+          {
+            "name": "Post Setup Node.js 21",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "Node.js 26 - windows-latest",
+        "conclusion": "success",
+        "start": "2026-10-17T16:21:36Z",
+        "end": "2026-10-17T16:22:29Z",
+        "seconds": 53,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443705218",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 9
+          },
+          {
+            "name": "Setup Node.js 26",
+            "seconds": 12
+          },
+          {
+            "name": "Configure npm loglevel",
+            "seconds": 1
+          },
+          {
+            "name": "Install dependencies",
+            "seconds": 15
+          },
+          {
+            "name": "Output Node and NPM versions",
+            "seconds": 1
+          },
+          {
+            "name": "Run tests",
+            "seconds": 6
+          },
+          {
+            "name": "Upload code coverage",
+            "seconds": 2
+          },
+          {
+            "name": "Post Setup Node.js 26",
+            "seconds": 0
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 2
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "name": "coverage",
+        "conclusion": "success",
+        "start": "2026-10-17T16:22:44Z",
+        "end": "2026-10-17T16:23:05Z",
+        "seconds": 21,
+        "url": "https://github.com/expressjs/express/actions/runs/39046631685/job/117443960263",
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 1
+          },
+          {
+            "name": "Install lcov",
+            "seconds": 10
+          },
+          {
+            "name": "Collect coverage reports",
+            "seconds": 1
+          },
+          {
+            "name": "Merge coverage reports",
+            "seconds": 0
+          },
+          {
+            "name": "Upload coverage report",
+            "seconds": 4
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "seconds": 0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0
+          }
+        ]
+      }
+    ],
+    "requests": 4
+  }
+]

@@ -1,0 +1,17 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { parseWorkflow, schedule, simulate } from '../src/engine.mjs';
+import { repoName, fetchRun } from '../src/github.mjs';
+import { readFileSync } from 'node:fs';
+const jobs = [{id:'lint',needs:[],seconds:30},{id:'test',needs:['lint'],seconds:300,test:true,install:true,installSeconds:60},{id:'build',needs:['lint'],seconds:100},{id:'release',needs:['test','build'],seconds:20}];
+test('fork/join critical path and lower bound',()=>{const r=schedule(jobs);assert.equal(r.seconds,350);assert.deepEqual(r.path,['lint','test','release']);assert.equal(r.rows[2].start,30);assert.equal(r.runnerSeconds,450);});
+test('cycles, missing dependencies and unsafe duration rejected',()=>{assert.throws(()=>schedule([{id:'a',needs:['b'],seconds:1}]));assert.throws(()=>schedule([{id:'a',needs:['a'],seconds:1}]));assert.throws(()=>schedule([{id:'a',needs:[],seconds:NaN}]));});
+test('sharding includes setup duplication and overhead',()=>{const r=simulate(jobs,{shards:4,cache:true});assert.equal(r.seconds,155);assert.ok(r.runnerSeconds>450);assert.equal(r.rows[1].seconds,105);});
+test('noncritical job savings do not reduce makespan',()=>{const r=simulate(jobs.map(j=>({...j,test:false,install:j.id==='build',installSeconds:50})),{cache:true});assert.equal(r.seconds,350);});
+test('malformed YAML, aliases, unknown dependencies and empty graphs reject',()=>{for(const y of ['[]','jobs: {}','jobs: {a: {needs: ghost}}','jobs:\n  a: &a {steps: []}\n  b: *a','jobs: {a: 3}'])assert.throws(()=>parseWorkflow(y));});
+test('manual durations are explicitly unmeasured',()=>{const j=parseWorkflow('jobs:\n  test:\n    steps:\n      - run: npm ci && npm test');assert.equal(j[0].measured,false);assert.equal(j[0].seconds,60);assert.equal(j[0].test,true);assert.equal(j[0].install,true);});
+test('cache configuration and matrix name matching',()=>{const j=parseWorkflow('jobs:\n  test:\n    strategy: {matrix: {node: [20, 22]}}\n    steps:\n      - uses: actions/setup-node@v4\n        with: {cache: npm}',{jobs:[{name:'test (20)',seconds:30,steps:[]},{name:'test (22)',seconds:40,steps:[]}]});assert.equal(j[0].seconds,40);assert.equal(j[0].hasCache,true);assert.equal(j[0].observed.length,2);});
+test('simulator rejects invalid assumptions',()=>{assert.throws(()=>simulate(jobs,{shards:0}));assert.throws(()=>simulate(jobs,{cacheSaving:Infinity}));});
+test('public repo input cannot redirect traffic',()=>{assert.equal(repoName('https://github.com/pallets/click'),'pallets/click');for(const x of ['https://evil.test/a','../a','a/b/c','a/b?token=x'])assert.throws(()=>repoName(x));});
+test('GitHub quota error has no fallback calls',async()=>{let n=0;await assert.rejects(()=>fetchRun('a/b',async()=>{n++;return{ok:false,status:403}}),/free API limit/);assert.equal(n,1);});
+test('real snapshot adapters retain provenance and valid schedules',()=>{const data=JSON.parse(readFileSync(new URL('../src/snapshots.json',import.meta.url)));assert.ok(data.length>=2);for(const s of data){assert.match(s.sha,/^[a-f0-9]{40}$/);assert.ok(s.jobs.length);const j=parseWorkflow(s.yaml,s);assert.ok(j.some(j=>j.measured));assert.ok(schedule(j).seconds>0);}});
